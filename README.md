@@ -30,7 +30,7 @@ http://piwik.org/faq/general/faq_36/
 
 # Visits/Sessions
 
-Measuring visits (aka GA sessions) has some advantages compared to hits when we won't to measure usage statistics:
+Measuring visits (aka GA sessions) has some advantages compared to hits when we want to measure usage statistics:
 * The metric is not dependent on the technology used to build the website. For example a SPA (Single Page Application) may have many partials (html files) to build one single page. It can therefore generate plenty of hits on the server side, but will generate only one session (which is more correct in term of usage statistics). On the other side, if a site is build with basic 1 basic HTML file, only one hit will be generated on the server side. Those websites have the same "usage", but the hits can differ a lot, while the number of visits are the same.
 
 * Other dependent resources used to build the pages like images, css/js files, ... won't biase the number of sessions, because they all are part of the same session. But they will surely biase hits, and it is sometimes difficult to agree what is a dependant resource and what is not (only looking at the logs).
