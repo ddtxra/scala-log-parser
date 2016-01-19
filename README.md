@@ -21,8 +21,10 @@ http://piwik.org/faq/general/faq_36/
 
 # Results
 
+"Normal" HTML website
 ![alt text](assets/ga-vs-log-html.png "Normal HTML application")
 
+"Angular" website (single page application with partials)
 ![alt text](assets/ga-vs-log-spa.png "Single Page Application")
 
 
