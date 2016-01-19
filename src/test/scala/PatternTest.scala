@@ -1,4 +1,4 @@
-import ddt.log.analyser.BotUtils
+import ddt.log.analyser.utils.BotUtils
 
 import org.scalatest._
 

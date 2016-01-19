@@ -1,3 +1,5 @@
+package ddt.log.analyser.utils
+
 import java.time.{LocalDate, LocalDateTime}
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern

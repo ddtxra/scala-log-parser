@@ -1,9 +1,10 @@
+package ddt.log.analyser
+
 import java.time.format.DateTimeFormatter
 import java.time.{Duration, LocalDateTime}
 import java.util.concurrent.atomic.AtomicLong
-import java.util.regex.Pattern
 
-import ddt.log.analyser.BotUtils
+import ddt.log.analyser.utils.AccessLogRecord
 
 import scala.collection.mutable.HashMap
 

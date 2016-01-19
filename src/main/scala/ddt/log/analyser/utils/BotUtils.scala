@@ -1,4 +1,4 @@
-package ddt.log.analyser
+package ddt.log.analyser.utils
 
 import java.util.regex.Pattern
 

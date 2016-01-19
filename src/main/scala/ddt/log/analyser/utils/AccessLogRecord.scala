@@ -1,3 +1,5 @@
+package ddt.log.analyser.utils
+
 import java.time.LocalDateTime
 
 case class AccessLogRecord (clientIpAddress: String,         // should be an ip address, but may also be the hostname if hostname-lookups are enabled
