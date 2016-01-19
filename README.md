@@ -37,7 +37,7 @@ Measuring visits (aka GA sessions) has some advantages compared to hits when we 
 
 * It's less affected by the cache configuration. If a cache (based on expiration time) of 5minutes is defined and session is set to 30minutes sliding time window, then the number of visits will be the same. While the number of hits can decrease a lot.
 
-* As well as hits, it captures other data access like txt, xml, json data access (that are not caugh by Google Analytics)
+As well as hits, it captures other data access like txt, xml, json data access (that are not caugh by Google Analytics)
 
 # Consideration
 
