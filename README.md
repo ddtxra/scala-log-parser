@@ -22,20 +22,18 @@ Piwik has a similar definition for visit: http://piwik.org/faq/general/faq_36/
 ![alt text](assets/ga-vs-log-spa.png "Single Page Application")
 
 
-# Visits/Sessions
+# Sessions
 
-Measuring visits (aka GA sessions) has some advantages compared to hits when we want to measure usage statistics:
-* The number of visits is not dependent on the technology used to build the website. For example a SPA (Single Page Application) in AngularJS may have many partials (html files) to build one single page. It can potentially generate plenty of hits on the server side, but will generate only one session (which is more correct in term of usage statistics). On the other side, if a site is build with basic 1 basic HTML file, only one hit will be generated on the server side. Those websites have the same "usage", but the hits can differ a lot, while the number of visits are the same.
+Measuring sessions (aka Piwik visits) has some advantages compared to hits when we want to measure *usage statistics*:
+* It is *not dependent on the technology* used to build the website. For example a SPA (Single Page Application) in AngularJS may have many partials (html files) to build one single page. It can potentially generate plenty of hits on the server side, but will generate only one session (which is more correct in term of usage statistics). On the other side, if a site is build with basic 1 basic HTML file, only one hit will be generated on the server side. Those websites have the same "usage", but the hits can differ a lot, while the number of sessions are the same.
 
-* Other dependent resources used to build the pages like images, css/js files, ... won't biase the number of sessions, because they all are part of the same session. But they will surely biase hits, and it is sometimes difficult to agree what is a dependant resource and what is not (only looking at the logs).
+* Other *dependent resources* used to build the pages like images, css/js files, ... won't biase the number of sessions, because they all are part of the same session. But they will surely biase hits, and it is sometimes difficult to agree what is a dependant resource and what is not (only looking at the logs).
 
-* It increases if unique IPs increases. In term of usage statistics it's better to have 2 users acccessing the same resource, rather than 1 user accessing 2 pages. Hits won't reflect this information.
+* It increases if *unique IPs* increases. In term of usage statistics it's better to have 2 users acccessing the same resource, rather than 1 user accessing 2 pages. The number of hits won't reflect this information.
 
-* It is not dependent (I don't remember what I wanted to put here..)
+* It is much less affected by *monitoring tools* / *crawlers* or even *scripting / programmatic access*. For example if a monitoring tool, access the website every minute, the number of hits will increase while the session will only be 1 at the end of the day.
 
-* It is much less affected by monitoring tools or crawlers. For example if a monitoring tool, access the website every minute, the number of hits will increase while the session will only be 1 at the end of the day.
-
-* It's less affected by the cache configuration. If a cache (based on expiration time) of 5minutes is defined and session is set to 30minutes sliding time window, then the number of visits will be the same. While the number of hits can decrease a lot.
+* It's less affected by the *cache* configuration. If a cache (based on expiration time) of 5minutes is defined and session is set to 30minutes sliding time window, then the number of sessions will be the same. While the number of hits can decrease a lot.
 
 As well as hits, it captures other data access like txt, xml, json data access (that are not caugh by Google Analytics)
 
