@@ -1,10 +1,10 @@
-package ddt.log.analyser
+package web.log.sessions
 
 import java.time.format.DateTimeFormatter
 import java.time.{Duration, LocalDateTime}
 import java.util.concurrent.atomic.AtomicLong
 
-import ddt.log.analyser.utils.AccessLogRecord
+import web.log.sessions.utils.AccessLogRecord
 
 import scala.collection.mutable.HashMap
 

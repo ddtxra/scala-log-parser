@@ -1,8 +1,8 @@
-package ddt.log.analyser
+package web.log.sessions
 
 import java.io.File
 
-import ddt.log.analyser.utils.AccessLogParser
+import web.log.sessions.utils.AccessLogParser
 
 import scala.io.Source
 
@@ -15,7 +15,7 @@ object LogAnalyserApp extends App{
   val sessionCollector = new SessionCollector();
   val parser = new AccessLogParser();
 
-  val files = filesAt(new File("../expasy-logs/"));
+  val files = filesAt(new File("../logs/"));
 
   val filesToSelect = files.filter(f => "^access_log-2015\\d{4}$".r.findFirstIn(f.getName).isDefined).toList.sortWith(_.getName < _.getName);
 

@@ -1,8 +1,10 @@
-import ddt.log.analyser.utils.BotUtils
+package web.log.sessions
+
+import web.log.sessions.utils.BotUtils
 
 import org.scalatest._
 
-class ExampleSpec extends FlatSpec with Matchers {
+class BotTest extends FlatSpec with Matchers {
 
   "An indexing robot" should "be either googlebot, baiduspider, bing" in {
 

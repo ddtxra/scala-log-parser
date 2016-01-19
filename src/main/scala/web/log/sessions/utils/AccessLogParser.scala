@@ -1,13 +1,12 @@
-package ddt.log.analyser.utils
+package web.log.sessions.utils
 
-import java.time.{LocalDate, LocalDateTime}
-import java.time.format.DateTimeFormatter
-import java.util.regex.Pattern
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
+import java.util.regex.{Matcher, Pattern}
+
 import scala.util.control.Exception._
-import java.util.regex.Matcher
-import scala.util.{Try, Success, Failure}
 
 /**
   * A sample record:

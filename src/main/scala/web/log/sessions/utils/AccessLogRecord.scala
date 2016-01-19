@@ -1,4 +1,4 @@
-package ddt.log.analyser.utils
+package web.log.sessions.utils
 
 import java.time.LocalDateTime
 
