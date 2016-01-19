@@ -56,69 +56,13 @@ RULE 4 (bots)
 */
 object Sessionizer extends App{
 
-  //val pw = new java.io.PrintWriter(new File("sessions.csv"))
-  val sessionTimeMinutes = 30;
-  val fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-  val sessionMap = new HashMap[String, Long];
-  val requestsPerIpMap = new HashMap[String, LocalDateTime];
+  val sessionCollector = new SessionCollector();
   val parser = new AccessLogParser();
 
-  var lc = 0L;
-
   for(line <- Source.fromFile("../expasy-logs/access_log-20151213").getLines()){
-
-    //RULE 3
-      lc = lc + 1;
-      val rec = parser.parseRecord(line);
-
-      if(!rec.get.request.contains("resources/test")){
-        if(!rec.get.userAgent.contains("googlebot") && !line.toLowerCase().contains("baiduspider") && !line.toLowerCase().contains("bing")){
-
-        val lastSessionTime = requestsPerIpMap.getOrElse(rec.get.clientIpAddress, rec.get.dateTime);
-
-        //RULE 1
-        val duration = Duration.between(lastSessionTime, rec.get.dateTime).toMinutes();
-        if(duration > sessionTimeMinutes){
-          val day = fmt.format(rec.get.dateTime);
-          sessionMap.put(day, sessionMap.getOrElse(day, 0L) + 1L);
-
-
-          //RULE 2
-          if(lc % 10000 == 0 ){
-            println("check for purge")
-            // check if others must be removed because it has passed 24hours
-            val ips = requestsPerIpMap.keySet.map(k => {
-              val hours = Duration.between(requestsPerIpMap.getOrElse(k, null), rec.get.dateTime).toHours();
-              if(hours > 24){
-                k;
-              } else null
-            }).filter(_ != null);
-
-            ips.foreach(ip => {
-              val dt = requestsPerIpMap.remove(ip).get;
-              val dtf = fmt.format(dt);
-
-              sessionMap.put(dtf, sessionMap.getOrElse(dtf, 0L) + 1L);
-
-            })
-          }
-
-
-        }
-        requestsPerIpMap.put(rec.get.clientIpAddress, rec.get.dateTime);
-      }
-
-
-    }
-
+    sessionCollector.add(parser.parseRecord(line).get)
   }
 
-  sessionMap.keySet.toList.sortWith(_ < _).foreach(k => println(k + "," + String.valueOf(sessionMap.getOrElse(k, null))));
-
-
-  def purgeRequestsToSessions(): Unit ={
-
-  }
+  sessionCollector.printSessions;
 
 }
