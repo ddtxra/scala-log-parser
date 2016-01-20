@@ -39,7 +39,7 @@ Measuring sessions (aka Piwik visits) has some advantages compared to hits when 
 
 * It's in not very much affected by a **small downtime**  (less than 30 min) of the service, while the number of hits can be.
 
-* It is not dependent on the *number of urls* or *interactivity* the resource contains. For example if a resource contains 10 entries and for each entry creates 10 sections (urls) to be more interactive, while another resource present these same entries in just 10 different pages, the number of sessions may be the same while the number of hits may differ a lot. 
+* It is not dependent on the **number of pages / urls** or **interactivity** the resource offers. For example if a resource contains 10 entries and for each entry creates 10 sections (urls) to be more interactive, while another resource present these same entries in just 10 different pages, the number of sessions may be the same while the number of hits may differ a lot. 
 
 As well as hits, it captures other data access like txt, xml, json data access (that are not caugh by Google Analytics)
 
