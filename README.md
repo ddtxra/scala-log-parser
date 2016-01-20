@@ -37,7 +37,7 @@ Measuring sessions (aka Piwik visits) has some advantages compared to hits when 
 
 * It's less affected by the **cache** configuration. If a cache (based on expiration time) of 5minutes is defined and session is set to 30minutes sliding time window, then the number of sessions will be the same. While the number of hits can decrease a lot.
 
-* It's in not very much affected by a **small downtime**  (less than 30 min) of the service, while the number of hits can be.
+* It's in not very much affected by a **small downtime**  (less than 30 min) of the service, while the number of hits can be. Downtime of the servic should not be reflected on the usage statistics.
 
 * It is not dependent on the **number of pages / urls** or **interactivity** the resource offers. For example if a resource contains 10 entries and for each entry creates 10 sections (urls) to be more interactive, while another resource present these same entries in just 10 different pages, the number of sessions may be the same while the number of hits may differ a lot. 
 
