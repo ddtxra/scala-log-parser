@@ -84,7 +84,7 @@ class SessionCollector (sessionTimeout : Integer, filterBots : Boolean, computeT
 
   def printSessions {
     purgeIfNecessary(LocalDateTime.of(2100, 1, 1, 0, 0)); // 1st January 2100 to force the purge to be done
-    sessionsByDay.keySet.toList.sortWith(_ < _).foreach(k => println(k + " " + String.valueOf(sessionsByDay.getOrElse(k, null))));
+    sessionsByDay.keySet.toList.sortWith(_ < _).foreach(k => println(k + "," + String.valueOf(sessionsByDay.getOrElse(k, null))));
 
     if(computeTopAgents){
       println("Top 10 Agents (who generated sessions)");

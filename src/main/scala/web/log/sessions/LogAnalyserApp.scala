@@ -16,10 +16,10 @@ object LogAnalyserApp extends App{
   codec.onMalformedInput(CodingErrorAction.REPLACE)
   codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
 
-  val filterBots = getSysPropOrElse("filterBos", "false").toBoolean;
-  val sessionTimeoutInMinutes = getSysPropOrElse("sessionTimeoutInMinutes", "30").toInt; // The session in minute
-  val logsFolder = getSysPropOrElse("logsFolder", "../uniprot-logs-uncompressed/");
-  val filesRegex = getSysPropOrElse("filesRegex", "^access_log-15121\\d{7}$");
+  val filterBots = getSysPropOrElse("filterBots", "false").toBoolean;
+  val sessionTimeoutInMinutes = getSysPropOrElse("sessionTimeoutInMinutes", "30").toInt; // The sessions timeout in minute
+  val logFilesFolder = getSysPropOrElse("logFilesFolder", ".");
+  val logFilesRegex = getSysPropOrElse("logFilesRegex", "^access_log*");
 
   val computeTopAgents = getSysPropOrElse("computeTopAgents", "false").toBoolean;
   val computeTopRequests = getSysPropOrElse("computeTopRequests", "false").toBoolean
@@ -29,17 +29,20 @@ object LogAnalyserApp extends App{
 
   val parser = new AccessLogParser();
 
-  val files = filesAt(new File(logsFolder));
-  val filesToSelect = files.filter(f => filesRegex.r.findFirstIn(f.getName).isDefined).toList.sortWith(_.getName < _.getName);
+  val files = filesAt(new File(logFilesFolder));
+  val filesToSelect = files.filter(f => logFilesRegex.r.findFirstIn(f.getName).isDefined).toList.sortWith(_.getName < _.getName);
 
-  println("Session properties: \n" +
-    "\tlogsFolder=" + logsFolder  + "\n" +
-    "\tfilesRegex=" + filesRegex  + "\n" +
-    "\tsessionTimeoutInMinutes=" + sessionTimeoutInMinutes + "\n" +
-    "\tfilterBots=" + filterBots  + "\n" +
-    "\tcomputeTopAgents=" + computeTopAgents + "\n" +
-    "\tcomputeTopRequests=" + computeTopRequests + "\n" +
-    "\tcomputeTopIps=" + computeTopIps + "\n");
+  println("## Web Log sessions ############################### \n");
+
+  println("Properties:\n" +
+  "\t-DlogFilesFolder=" + logFilesFolder  + "\n" +
+  "\t-DlogFilesRegex=" + logFilesRegex  + "\n" +
+  "\t-DsessionTimeoutInMinutes=" + sessionTimeoutInMinutes + "\n" +
+  "\t-DfilterBots=" + filterBots  + "\n" +
+
+  "\t-DcomputeTopAgents=" + computeTopAgents + "\n" +
+  "\t-DcomputeTopRequests=" + computeTopRequests + "\n" +
+  "\t-DcomputeTopIps=" + computeTopIps + "\n");
 
   println("Found " + filesToSelect.size + " files");
 
@@ -57,7 +60,7 @@ object LogAnalyserApp extends App{
 
   private def filesAt(f: File): Array[File] = if (f.isDirectory) f.listFiles flatMap filesAt else Array(f)
 
-  private def getSysPropOrElse(s: String, elseValue: String) : String = if(System.getProperty(s) != null)  System.getProperty(s) else elseValue;
+  private def getSysPropOrElse(key: String, elseValue: String) : String = if(System.getProperty(key) != null)  System.getProperty(key) else elseValue;
 
 
 }
