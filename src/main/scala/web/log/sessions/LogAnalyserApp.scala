@@ -12,35 +12,52 @@ import scala.io.{Codec, Source}
   */
 object LogAnalyserApp extends App{
 
-
   implicit val codec = Codec("UTF-8")
   codec.onMalformedInput(CodingErrorAction.REPLACE)
   codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
 
-  val collector = new SessionCollector();
-  //val collector = new UsersCollector();
+  val filterBots = getSysPropOrElse("filterBos", "false").toBoolean;
+  val sessionTimeoutInMinutes = getSysPropOrElse("sessionTimeoutInMinutes", "30").toInt; // The session in minute
+  val logsFolder = getSysPropOrElse("logsFolder", "../uniprot-logs-uncompressed/");
+  val filesRegex = getSysPropOrElse("filesRegex", "^access_log-15121\\d{7}$");
+
+  val computeTopAgents = getSysPropOrElse("computeTopAgents", "false").toBoolean;
+  val computeTopRequests = getSysPropOrElse("computeTopRequests", "false").toBoolean
+  val computeTopIps = getSysPropOrElse("computeTopIps", "false").toBoolean
+
+  val collector = new SessionCollector(sessionTimeoutInMinutes, filterBots, computeTopAgents, computeTopRequests, computeTopIps);
 
   val parser = new AccessLogParser();
 
-  val files = filesAt(new File("../uniprot-logs-uncompressed/"));
-  val filesToSelect = files.filter(f => "^access_log-15121\\d{7}$".r.findFirstIn(f.getName).isDefined).toList.sortWith(_.getName < _.getName);
+  val files = filesAt(new File(logsFolder));
+  val filesToSelect = files.filter(f => filesRegex.r.findFirstIn(f.getName).isDefined).toList.sortWith(_.getName < _.getName);
 
-//  val files = filesAt(new File("../search-logs/"));
-//  val filesToSelect = files.filter(f => "^ssl_access_log-2015\\d{4}$".r.findFirstIn(f.getName).isDefined).toList.sortWith(_.getName < _.getName);
+  println("Session properties: \n" +
+    "\tlogsFolder=" + logsFolder  + "\n" +
+    "\tfilesRegex=" + filesRegex  + "\n" +
+    "\tsessionTimeoutInMinutes=" + sessionTimeoutInMinutes + "\n" +
+    "\tfilterBots=" + filterBots  + "\n" +
+    "\tcomputeTopAgents=" + computeTopAgents + "\n" +
+    "\tcomputeTopRequests=" + computeTopRequests + "\n" +
+    "\tcomputeTopIps=" + computeTopIps + "\n");
 
-  var l = "";
-    for(file <- filesToSelect){
-      println(file.getName);
-      for(line <- Source.fromFile(file).getLines()){
-        collector.add(parser.parseRecord(line).get)
-      }
+  println("Found " + filesToSelect.size + " files");
+
+  for(file <- filesToSelect){
+    println("Processing " + file.getName + " ...");
+    for(line <- Source.fromFile(file).getLines()){
+      collector.add(parser.parseRecord(line).get)
     }
+  }
 
+  println("Results:")
+  println("")
 
   collector.printSessions;
-  //collector.printUsers;
-
 
   private def filesAt(f: File): Array[File] = if (f.isDirectory) f.listFiles flatMap filesAt else Array(f)
+
+  private def getSysPropOrElse(s: String, elseValue: String) : String = if(System.getProperty(s) != null)  System.getProperty(s) else elseValue;
+
 
 }

@@ -1,13 +1,13 @@
-//import AssemblyKeys._ // put this at the top of the file
+import AssemblyKeys._ // put this at the top of the file
 
 //You can check configuration examples here:
 //http://www.scala-sbt.org/release/docs/Examples/Quick-Configuration-Examples
 
-//assemblySettings
+assemblySettings
 
-//jarName in assembly := "scala-log-analyser.jar"
+jarName in assembly := "web-log-sessions.jar"
 
-//mainClass in assembly := Some("Sessionizer")
+mainClass in assembly := Some("web.log.sessions.LogAnalyserApp")
 
 name := "scala-log-analyser"
 
