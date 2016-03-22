@@ -82,3 +82,16 @@ If a cache (based on expiration time) of 5minutes is defined and session is set 
 For example if a resource contains 10 entries and for each entry creates 10 sections (urls) to be more interactive, while another resource present these same entries in just 10 different pages, the number of sessions may be the same while the number of hits may differ a lot. 
 
 As well as hits, it captures other data access like txt, xml, json data access (that are not caugh by Google Analytics)
+
+## Limitations / Considerations
+
+Note that this is not an exact science. It is not possible to reproduce exactly the same numbers using client and server side technology. Google Analytics relies on browser cookies and this alternative relies on server logs. 
+
+Take for instance this scenario:
+Two persons (or N) with the same version of a browser, browsing a website at the same moment in time and sitting behind an instution that only exposes one IP address to the public world.
+
+The web log sessions won't be able to tell that those requests are from different persons, whil  Google Analytics that relies on browser cookies will be able to tell that the requests are coming from 2 sessions.
+
+On the other hand, if someone using a programmtic tool that does not interpret javascript (such as wget) is downloading a file from a website  (like an XML file). Google analytics won't be able to intercept the session, while server log sessions will.
+
+Nevertheless, the results have shown so far that the approximation is quite satisfactory.
