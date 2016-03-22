@@ -25,7 +25,7 @@ class AccessLogParser extends Serializable {
   private val client = "(\\S+)"                     // '\S' is 'non-whitespace character'
   private val user = "(\\S+)"
   private val dateTime = "(\\[.+?\\])"              // like `[21/Jul/2009:02:48:13 -0700]`
-  private val request = "\"(.*?)\""                 // any number of any character, reluctant
+  private val request = "\"(GET|POST|PUT|DELETE|OPTIONS|HEAD|-| ) (.*?) HTTP\\S+\""                 // any number of any character, reluctant
   private val status = "(\\d{3})"
   private val bytes = "(\\S+)"                      // this can be a "-"
   private val referer = "\"(.*?)\""
@@ -46,7 +46,8 @@ class AccessLogParser extends Serializable {
     if (matcher.find) {
       Some(buildAccessLogRecord(matcher))
     } else {
-      None
+      //println(record);
+      Some(AccessLogRecord("", "", "", LocalDateTime.now(), "NULL", "", "", "", "", ""));
     }
   }
 
@@ -78,7 +79,8 @@ class AccessLogParser extends Serializable {
       matcher.group(6),
       matcher.group(7),
       matcher.group(8),
-      matcher.group(9))
+      matcher.group(9),
+      matcher.group(10))
   }
 }
 
@@ -88,7 +90,7 @@ class AccessLogParser extends Serializable {
   */
 object AccessLogParser {
 
-  val nullObjectAccessLogRecord = AccessLogRecord("", "", "", LocalDateTime.now(), "", "", "", "", "")
+  val nullObjectAccessLogRecord = AccessLogRecord("", "", "", LocalDateTime.now(), "NULL", "", "", "", "", "")
 
   /**
     * @param A String like "GET /the-uri-here HTTP/1.1"

@@ -6,6 +6,7 @@ case class AccessLogRecord (clientIpAddress: String,         // should be an ip 
                             rfc1413ClientIdentity: String,   // typically `-`
                             remoteUser: String,              // typically `-`
                             dateTime: LocalDateTime,                // [day/month/year:hour:minute:second zone]
+                            verb: String,                 // `GET /foo ...`
                             request: String,                 // `GET /foo ...`
                             httpStatusCode: String,          // 200, 404, etc.
                             bytesSent: String,               // may be `-`
