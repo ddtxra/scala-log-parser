@@ -87,11 +87,9 @@ As well as hits, it captures other data access like txt, xml, json data access (
 
 Note that this is not an exact science. It is not possible to reproduce exactly the same numbers using client and server side technology. Google Analytics relies on browser cookies and this alternative relies on server logs. 
 
-Take for instance this scenario:
-Two persons (or N) with the same version of a browser, browsing a website at the same moment in time and sitting behind an instution that only exposes one IP address to the public world.
+Take for example the following scenario:
+Two persons with the same version of a browser, going to the same website at the same moment in time and sitting behind an institution that only exposes one single IP address to the public world: The web log sessions won't be able to tell that the requests are coming from two different persons, while  Google Analytics that relies on browser cookies will be able to tell that the requests are coming from two persons and therefore will create two sessions.
 
-The web log sessions won't be able to tell that those requests are from different persons, whil  Google Analytics that relies on browser cookies will be able to tell that the requests are coming from 2 sessions.
-
-On the other hand, if someone using a programmtic tool that does not interpret javascript (such as wget) is downloading a file from a website  (like an XML file). Google analytics won't be able to intercept the session, while server log sessions will.
+On the other hand, if someone using a programmatic tool that does not interpret javascript (such as wget) and downloading bunches of files from a website (such as  XML files). Google analytics won't be able to intercept those requests and will never count any session associated to this, while server log sessions will.
 
 Nevertheless, the results have shown so far that the approximation is quite satisfactory.
