@@ -55,7 +55,7 @@ java -jar -DlogFilesFolder=../logs/ -DlogFilesFolder="^access_log-15121\d{7}$" t
 ![alt text](assets/ga-vs-log-spa.png "Single Page Application")
 
 
-## Sessions
+## Sessions advantages
 
 Measuring sessions (aka Piwik visits) has some advantages compared to hits when one wants to measure website **usage**:
 
